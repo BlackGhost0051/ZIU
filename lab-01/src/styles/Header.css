@@ -24,6 +24,7 @@
   font-size: 1.5rem;
   font-weight: 900;
   color: var(--text-light);
+  cursor: pointer;
 }
 
 .logo-icon {
@@ -49,6 +50,7 @@
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
+  cursor: pointer;
 }
 
 .nav-links a:hover {

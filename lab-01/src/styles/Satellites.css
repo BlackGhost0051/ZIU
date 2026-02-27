@@ -19,6 +19,7 @@
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .satellite-card::before {
