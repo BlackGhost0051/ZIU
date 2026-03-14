@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorium 3 - UX/UI Interface</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome dla ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Nawigacja główna -->
+    <nav class="main-nav">
+        <div class="nav-brand">
+            <i class="fas fa-laptop-code"></i>
+            <span>LAB 3 Interface</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#" data-page="register" class="active">Rejestracja</a></li>
+            <li><a href="#" data-page="login">Logowanie</a></li>
+            <li><a href="#" data-page="dashboard">Dashboard</a></li>
+            <li><a href="#" data-page="table">Tabela</a></li>
+            <li><a href="#" data-page="modal-demo">Modal</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- ZADANIE 1: Formularz Rejestracji -->
+    <section id="register" class="page active">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h1>Rejestracja</h1>
+                    <p>Stwórz nowe konto</p>
+                </div>
+                <form id="registerForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="fullName">
+                            <i class="fas fa-user"></i>
+                            Imię i nazwisko
+                        </label>
+                        <input type="text" id="fullName" name="fullName" required minlength="3">
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">
+                            <i class="fas fa-envelope"></i>
+                            Adres email
+                        </label>
+                        <input type="email" id="registerEmail" name="email" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">
+                            <i class="fas fa-lock"></i>
+                            Hasło
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="registerPassword" name="password" required minlength="8">
+                            <button type="button" class="toggle-password" data-target="registerPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"></span>
+                        <small class="hint">Minimum 8 znaków</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">
+                            <i class="fas fa-lock"></i>
+                            Potwierdź hasło
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <button type="button" class="toggle-password" data-target="confirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">Akceptuję <a href="#">regulamin</a> i <a href="#">politykę prywatności</a></span>
+                        </label>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-user-plus"></i>
+                        Zarejestruj się
+                    </button>
+
+                    <div class="form-footer">
+                        Masz już konto? <a href="#" data-page="login">Zaloguj się</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZADANIE 2: Strona Logowania -->
+    <section id="login" class="page">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <h1>Logowanie</h1>
+                    <p>Witaj ponownie!</p>
+                </div>
+                <form id="loginForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="loginEmail">
+                            <i class="fas fa-envelope"></i>
+                            Email lub login
+                        </label>
+                        <input type="text" id="loginEmail" name="login" required>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">
+                            <i class="fas fa-lock"></i>
+                            Hasło
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" name="password" required>
+                            <button type="button" class="toggle-password" data-target="loginPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">Zapamiętaj mnie</span>
+                        </label>
+                        <a href="#" class="forgot-password">Zapomniałeś hasła?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Zaloguj się
+                    </button>
+
+                    <div class="form-footer">
+                        Nie masz konta? <a href="#" data-page="register">Zarejestruj się</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZADANIE 3: Dashboard -->
+    <section id="dashboard" class="page">
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="sidebar-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Strona główna</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Statystyki</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i class="fas fa-users"></i>
+                        <span>Użytkownicy</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Ustawienia</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Powiadomienia</span>
+                        <span class="badge">3</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Wyloguj</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="dashboard-main">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <div class="welcome-text">
+                        <h1>Witaj, <span id="userName">Jan Kowalski</span>! 👋</h1>
+                        <p>Oto podsumowanie Twojej aktywności</p>
+                    </div>
+                    <div class="welcome-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Dodaj nowy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>1,234</h3>
+                            <p>Użytkownicy</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 12%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>$45,678</h3>
+                            <p>Przychód</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 23%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>567</h3>
+                            <p>Zamówienia</p>
+                            <span class="stat-change negative">
+                                <i class="fas fa-arrow-down"></i> 5%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>89%</h3>
+                            <p>Konwersja</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 8%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <div class="section-header">
+                        <h2>Statystyki miesięczne</h2>
+                        <select class="chart-select">
+                            <option>Ostatnie 30 dni</option>
+                            <option>Ostatnie 90 dni</option>
+                            <option>Ostatni rok</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="activities-section">
+                    <div class="section-header">
+                        <h2>Ostatnie aktywności</h2>
+                        <a href="#" class="view-all">Zobacz wszystkie <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="activities-list">
+                        <div class="activity-item">
+                            <div class="activity-icon blue">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>Nowy użytkownik</strong> zarejestrował się</p>
+                                <span class="activity-time">5 minut temu</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon green">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>Nowe zamówienie</strong> #1234</p>
+                                <span class="activity-time">15 minut temu</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon orange">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>Ostrzeżenie</strong> niski stan magazynu</p>
+                                <span class="activity-time">1 godzinę temu</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon purple">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>Nowy komentarz</strong> od klienta</p>
+                                <span class="activity-time">2 godziny temu</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon blue">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>Zrealizowano</strong> zamówienie #1233</p>
+                                <span class="activity-time">3 godziny temu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- ZADANIE 4: Tabela z danymi -->
+    <section id="table" class="page">
+        <div class="container-full">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h1><i class="fas fa-table"></i> Zarządzanie danymi</h1>
+                    <button class="btn btn-primary" id="addDataBtn">
+                        <i class="fas fa-plus"></i>
+                        Dodaj nowy
+                    </button>
+                </div>
+
+                <div class="table-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Szukaj...">
+                    </div>
+                    <div class="table-info">
+                        <span id="tableInfo">Pokazano 1-10 z 50 wpisów</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="id">
+                                    ID <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="name">
+                                    Nazwa <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="email">
+                                    Email <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="status">
+                                    Status <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="date">
+                                    Data <i class="fas fa-sort"></i>
+                                </th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Dane będą generowane przez JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="pagination">
+                    <!-- Paginacja będzie generowana przez JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZADANIE 5: Demo strony dla modala -->
+    <section id="modal-demo" class="page">
+        <div class="container">
+            <div class="modal-demo-content">
+                <h1><i class="fas fa-window-restore"></i> Demo okna modalnego</h1>
+                <p>Kliknij przycisk poniżej, aby otworzyć okno modalne</p>
+                <button class="btn btn-primary btn-large" id="openModalBtn">
+                    <i class="fas fa-plus"></i>
+                    Otwórz Modal
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal (Zadanie 5) -->
+    <div id="modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <i class="fas fa-plus-circle"></i>
+                <h2>Dodaj nowy element</h2>
+            </div>
+            <form id="modalForm" class="modal-form">
+                <div class="form-group">
+                    <label for="itemName">
+                        <i class="fas fa-tag"></i>
+                        Nazwa elementu
+                    </label>
+                    <input type="text" id="itemName" name="itemName" required>
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemCategory">
+                        <i class="fas fa-folder"></i>
+                        Kategoria
+                    </label>
+                    <select id="itemCategory" name="category" required>
+                        <option value="">Wybierz kategorię</option>
+                        <option value="electronics">Elektronika</option>
+                        <option value="clothing">Odzież</option>
+                        <option value="food">Żywność</option>
+                        <option value="books">Książki</option>
+                        <option value="other">Inne</option>
+                    </select>
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemDescription">
+                        <i class="fas fa-align-left"></i>
+                        Opis
+                    </label>
+                    <textarea id="itemDescription" name="description" rows="4" required></textarea>
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemPrice">
+                        <i class="fas fa-dollar-sign"></i>
+                        Cena
+                    </label>
+                    <input type="number" id="itemPrice" name="price" step="0.01" min="0" required>
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="modalCancel">
+                        <i class="fas fa-times"></i>
+                        Anuluj
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Dodaj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
