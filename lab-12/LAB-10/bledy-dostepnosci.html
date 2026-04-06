@@ -1,0 +1,164 @@
+<!-- BRAK lang na <html> — błąd #1: WCAG 3.1.1 A -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Strona z błędami dostępności — Lab 10</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; margin: 0; padding: 20px; }
+
+    /* Błąd #2: niski kontrast tekstu #aaa na białym tle (2.3:1) — WCAG 1.4.3 AA */
+    .subtitle { color: #aaaaaa; font-size: 1.2rem; }
+
+    /* Błąd #3: ukryty focus indicator — WCAG 2.4.7 AA */
+    * { outline: none; }
+
+    /* Błąd #4: niski kontrast przycisku — jasnoniebieski #6699FF na #0043FF (1.6:1) — WCAG 1.4.3 AA */
+    .btn-bad { background-color: #0043FF; color: #6699FF; padding: 10px 20px; border: none; cursor: pointer; font-size: 1rem; border-radius: 4px; }
+
+    h1 { color: #111; }
+
+    /* Błąd #11: klikalny div bez klawiatury */
+    .fake-button { background: #e50914; color: #fff; padding: 10px 20px; display: inline-block; cursor: pointer; border-radius: 4px; margin: 8px 0; }
+
+    /* Błąd #17: custom dropdown */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle { background: #333; color: #fff; padding: 8px 16px; cursor: pointer; border-radius: 4px; }
+    .dropdown-menu { display: none; position: absolute; background: #fff; border: 1px solid #ccc; list-style: none; padding: 4px 0; margin: 0; min-width: 150px; }
+    .dropdown-menu li { padding: 8px 12px; cursor: pointer; }
+    .dropdown-menu li:hover { background: #eee; }
+    .dropdown:hover .dropdown-menu { display: block; }
+
+    table { border-collapse: collapse; width: 100%; }
+    td { border: 1px solid #ccc; padding: 8px; }
+
+    .section { margin-bottom: 40px; }
+    a { margin-right: 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Strona demonstracyjna — 18 błędów dostępności</h1>
+
+  <!-- Błąd #2: niski kontrast -->
+  <p class="subtitle">Podtytuł z niewystarczającym kontrastem (2.3:1, wymagane 4.5:1)</p>
+
+  <!-- ===== NAGŁÓWKI ===== -->
+  <div class="section">
+    <!-- Błąd #5: pominięte poziomy nagłówków h1 → h4 — WCAG 1.3.1 A -->
+    <h4>Sekcja z pominietym poziomem nagłówka (h1 → h4)</h4>
+  </div>
+
+  <!-- ===== OBRAZY ===== -->
+  <div class="section">
+    <!-- Błąd #6: brak atrybutu alt — WCAG 1.1.1 A -->
+    <img src="https://via.placeholder.com/200x150" width="200" height="150" />
+
+    <!-- Błąd #7: pusty alt="" na obrazie informatywnym — WCAG 1.1.1 A -->
+    <img src="https://via.placeholder.com/200x150/ff0000" alt="" width="200" height="150"
+         style="margin-left:16px" />
+    <p style="font-size:0.85rem;color:#555">Wykres przedstawiający wzrost sprzedaży o 42% w Q4 2024</p>
+  </div>
+
+  <!-- ===== LINKI ===== -->
+  <div class="section">
+    <h2>Linki</h2>
+    <!-- Błąd #8: nieopiszące linki — WCAG 2.4.4 A -->
+    <a href="/oferta">Kliknij tutaj</a>
+    <a href="/artykul">Więcej</a>
+    <a href="/kontakt">Kliknij tutaj</a>
+  </div>
+
+  <!-- ===== FORMULARZE ===== -->
+  <div class="section">
+    <h2>Formularz</h2>
+
+    <!-- Błąd #9: input bez <label> — WCAG 1.3.1 / 4.1.2 A -->
+    <input type="text" placeholder="Wpisz imię" style="padding:8px;margin-bottom:12px;display:block;width:200px;" />
+
+    <!-- Błąd #10: przycisk bez dostępnej nazwy (tylko emoji) — WCAG 4.1.2 A -->
+    <button style="font-size:1.5rem;border:none;background:none;cursor:pointer;">❤️</button>
+
+    <!-- Błąd #14: pozytywne wartości tabindex zaburzające kolejność — WCAG 2.4.3 A -->
+    <div style="margin-top:16px;">
+      <input type="text" placeholder="Pole 3" tabindex="3" style="display:block;margin-bottom:8px;padding:8px;" />
+      <input type="text" placeholder="Pole 1" tabindex="1" style="display:block;margin-bottom:8px;padding:8px;" />
+      <input type="text" placeholder="Pole 2" tabindex="2" style="display:block;margin-bottom:8px;padding:8px;" />
+    </div>
+
+    <!-- Błąd #16: radio bez <fieldset>/<legend> — WCAG 1.3.1 A -->
+    <div style="margin-top:16px;">
+      <p>Wybierz płeć:</p>
+      <input type="radio" name="gender" id="male" value="male" />
+      <label for="male">Mężczyzna</label><br/>
+      <input type="radio" name="gender" id="female" value="female" />
+      <label for="female">Kobieta</label>
+    </div>
+  </div>
+
+  <!-- ===== PRZYCISKI ===== -->
+  <div class="section">
+    <h2>Przyciski i interaktywne elementy</h2>
+
+    <!-- Błąd #4: niski kontrast przycisku -->
+    <button class="btn-bad">Zapisz (niski kontrast)</button>
+
+    <!-- Błąd #11: klikalny <div> bez dostępności klawiatury — WCAG 2.1.1 / 4.1.2 A -->
+    <div class="fake-button" onclick="alert('Kliknięto!')">Kup teraz (div zamiast button)</div>
+
+    <!-- Błąd #17: custom dropdown bez ról ARIA — WCAG 4.1.2 A -->
+    <div class="dropdown" style="margin-top:12px;">
+      <div class="dropdown-toggle">Wybierz opcję ▼</div>
+      <ul class="dropdown-menu">
+        <li>Opcja 1</li>
+        <li>Opcja 2</li>
+        <li>Opcja 3</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== TABELA ===== -->
+  <div class="section">
+    <h2>Tabela danych</h2>
+    <!-- Błąd #12: tabela bez <th> — WCAG 1.3.1 A -->
+    <table>
+      <tr>
+        <td>Produkt</td>
+        <td>Cena</td>
+        <td>Ilość</td>
+      </tr>
+      <tr>
+        <td>Laptop</td>
+        <td>3 499 zł</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>Monitor</td>
+        <td>1 299 zł</td>
+        <td>8</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ===== MULTIMEDIA ===== -->
+  <div class="section">
+    <h2>Multimedia</h2>
+
+    <!-- Błąd #13: video z autoplay/loop bez controls i napisów — WCAG 1.2.2 / 2.2.2 A -->
+    <video autoplay loop width="320" height="180" style="background:#000;display:block;">
+      <source src="sample.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Błąd #15: iframe bez title — WCAG 4.1.2 A -->
+    <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=20,50,21,51"
+            width="400" height="200" style="display:block;margin-top:16px;border:1px solid #ccc;">
+    </iframe>
+
+    <!-- Błąd #18: <marquee> — ruchoma treść bez kontroli — WCAG 2.2.2 A -->
+    <marquee style="margin-top:16px;color:#e50914;font-weight:bold;">
+      UWAGA: Ruchomy tekst bez możliwości zatrzymania — naruszenie WCAG 2.2.2!
+    </marquee>
+  </div>
+
+</body>
+</html>

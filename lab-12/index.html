@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoApp – Laboratorium 12 – Analityka behawioralna</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 0; background: #0f0f13; min-height: 100vh; }
+    </style>
+    <!--
+      Zadanie A – Plausible Analytics (Ścieżka B, privacy-first).
+      Atrybut defer zapewnia brak render-blocking (weryfikacja: DevTools → Network → timing).
+      Plausible nie ustawia cookies ani nie wymaga banera RODO.
+      data-domain: w środowisku produkcyjnym zastąpić domeną projektu.
+    -->
+    <script defer data-api="/api/event" data-domain="localhost"
+      src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
