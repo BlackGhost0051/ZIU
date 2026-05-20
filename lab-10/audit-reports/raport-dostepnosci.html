@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Raport Audytu Dostępności — Lab 10</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1100px; margin: 0 auto; padding: 24px; color: #111; }
+    h1 { color: #1565C0; border-bottom: 3px solid #1565C0; padding-bottom: 8px; }
+    h2 { color: #1565C0; margin-top: 40px; border-bottom: 1px solid #ccc; padding-bottom: 6px; }
+    h3 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 0.9rem; }
+    th { background: #1565C0; color: #fff; padding: 10px 8px; text-align: left; }
+    td { border: 1px solid #ddd; padding: 8px; vertical-align: top; }
+    tr:nth-child(even) { background: #f7f9fc; }
+    .badge { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 0.8rem; font-weight: 700; }
+    .badge-A   { background: #f44336; color: #fff; }
+    .badge-AA  { background: #ff9800; color: #fff; }
+    .badge-P1  { background: #f44336; color: #fff; }
+    .badge-P2  { background: #ff9800; color: #fff; }
+    .badge-P3  { background: #4caf50; color: #fff; }
+    .badge-fixed { background: #4caf50; color: #fff; }
+    .badge-open  { background: #9e9e9e; color: #fff; }
+    .score { font-size: 2.5rem; font-weight: 700; color: #f44336; }
+    .score-after { font-size: 2.5rem; font-weight: 700; color: #4caf50; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .info-box { background: #f5f7fa; border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+    .info-box dt { font-weight: 700; color: #555; font-size: 0.85rem; margin-top: 8px; }
+    .info-box dd { margin: 0 0 4px; color: #111; }
+    pre { background: #1e1e2e; color: #cdd6f4; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .before { background: #3e1c1c; color: #ffb3b3; }
+    .after  { background: #1c3e1c; color: #b3ffb3; }
+    .tool-results { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0; }
+    .tool-box { background: #f5f7fa; border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+    .tool-box h4 { margin: 0 0 8px; color: #1565C0; }
+    .tool-number { font-size: 2rem; font-weight: 700; color: #e50914; }
+    .observation { background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 16px; margin: 8px 0; border-radius: 0 6px 6px 0; }
+    .recommendation { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 12px 16px; margin: 8px 0; border-radius: 0 6px 6px 0; }
+    .contrast-row td:nth-child(3) { font-family: monospace; }
+    footer { margin-top: 60px; border-top: 1px solid #ccc; padding-top: 16px; color: #777; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<h1>Raport Audytu Dostępności WCAG 2.1</h1>
+
+<!-- ===== 1. DANE OGÓLNE ===== -->
+<h2>1. Dane ogólne audytu</h2>
+<div class="info-grid">
+  <div class="info-box">
+    <dl>
+      <dt>Autor raportu</dt><dd>Student — Laboratorium 10</dd>
+      <dt>Data audytu</dt><dd>2026-05-20</dd>
+      <dt>Audytowana strona</dt><dd><code>bledy-dostepnosci.html</code></dd>
+      <dt>URL</dt><dd>http://localhost:3000/bledy-dostepnosci.html</dd>
+      <dt>Standard</dt><dd>WCAG 2.1, poziom AA</dd>
+    </dl>
+  </div>
+  <div class="info-box">
+    <dl>
+      <dt>Wynik Lighthouse (przed)</dt>
+      <dd><span class="score">57/100</span></dd>
+      <dt>Narzędzia</dt>
+      <dd>Lighthouse CLI 13.3.0, axe-core CLI 4.11.3, pa11y 9.1.1, Inspekcja manualna</dd>
+      <dt>Łączna liczba błędów</dt>
+      <dd>18 intencjonalnych + wykrytych automatycznie: Lighthouse 8, axe 6, pa11y 13</dd>
+    </dl>
+  </div>
+</div>
+
+<h3>Wyniki narzędzi automatycznych</h3>
+<div class="tool-results">
+  <div class="tool-box">
+    <h4>🔦 Lighthouse CLI</h4>
+    <div class="tool-number">8</div>
+    <p>nieudanych audytów dostępności</p>
+    <p>Wynik kategorii: <strong>57/100</strong></p>
+  </div>
+  <div class="tool-box">
+    <h4>🪓 axe-core CLI</h4>
+    <div class="tool-number">6</div>
+    <p>naruszeń WCAG 2 AA</p>
+    <p>axe-core 4.11.4, wcag2a + wcag2aa</p>
+  </div>
+  <div class="tool-box">
+    <h4>♿ pa11y</h4>
+    <div class="tool-number">13</div>
+    <p>błędów WCAG2AA</p>
+    <p>WCAG2AA standard, HTML_CS runner</p>
+  </div>
+</div>
+
+<!-- ===== 2. TABELA BŁĘDÓW ===== -->
+<h2>2. Tabela błędów (18 pozycji)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Błąd</th>
+      <th>Kryterium WCAG 2.1</th>
+      <th>Poziom</th>
+      <th>Priorytet</th>
+      <th>Wykryty przez</th>
+      <th>Rekomendacja naprawy</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Brak atrybutu <code>lang</code> na <code>&lt;html&gt;</code></td>
+      <td>3.1.1 Język strony</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Lighthouse, axe, pa11y</td>
+      <td>Dodać <code>&lt;html lang="pl"&gt;</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Niski kontrast tekstu <code>.subtitle</code>: #aaa na #fff (2.3:1, wymagane 4.5:1)</td>
+      <td>1.4.3 Kontrast (minimum)</td>
+      <td><span class="badge badge-AA">AA</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Lighthouse, axe, pa11y, Manualnie</td>
+      <td>Zmienić kolor na <code>#767676</code> (4.54:1)</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Ukryty wskaźnik focus: <code>* { outline: none }</code></td>
+      <td>2.4.7 Widoczność fokusu</td>
+      <td><span class="badge badge-AA">AA</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Manualnie (klawiatura)</td>
+      <td>Usunąć <code>outline:none</code>, dodać <code>*:focus { outline: 3px solid #005fcc }</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Niski kontrast przycisku: #6699FF na #0043FF (1.6:1, wymagane 3:1)</td>
+      <td>1.4.3 Kontrast (minimum)</td>
+      <td><span class="badge badge-AA">AA</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>axe, pa11y, Manualnie</td>
+      <td>Zmienić kolor tekstu na <code>#ffffff</code> (kontrast 5.9:1)</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Pominięty poziom nagłówka: h1 → h4 (brak h2, h3)</td>
+      <td>1.3.1 Informacje i relacje</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Lighthouse</td>
+      <td>Zmienić <code>&lt;h4&gt;</code> na <code>&lt;h2&gt;</code> lub wstawić brakujące poziomy</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Brak atrybutu <code>alt</code> na obrazie</td>
+      <td>1.1.1 Treść nietekstowa</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Lighthouse, axe, pa11y</td>
+      <td>Dodać <code>alt="Przykładowy obraz demonstracyjny"</code> — tekst opisujący cel obrazu</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Pusty <code>alt=""</code> na obrazie informatywnym (wykres sprzedaży)</td>
+      <td>1.1.1 Treść nietekstowa</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Manualnie</td>
+      <td>Zmienić na <code>alt="Wykres słupkowy: wzrost sprzedaży o 42% w Q4 2024"</code> — alt musi przekazywać tę samą informację co obraz</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Nieopiszące linki: "Kliknij tutaj", "Więcej"</td>
+      <td>2.4.4 Cel linku (w kontekście)</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Manualnie (czytnik ekranu)</td>
+      <td>Zmienić tekst linku na opisowy: <code>&lt;a href="/oferta"&gt;Sprawdź naszą ofertę&lt;/a&gt;</code> zamiast "Kliknij tutaj". Każdy link musi być unikalny i zrozumiały bez kontekstu wizualnego.</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Input tekstowy bez powiązanego <code>&lt;label&gt;</code></td>
+      <td>1.3.1 / 4.1.2 Nazwa, rola, wartość</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>pa11y (F68), Manualnie</td>
+      <td>Dodać <code>&lt;label for="..."&gt;</code> powiązany przez <code>id</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Przycisk bez dostępnej nazwy (tylko emoji ❤️)</td>
+      <td>4.1.2 Nazwa, rola, wartość</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Manualnie (czytnik ekranu)</td>
+      <td>Dodać <code>aria-label="Dodaj do ulubionych"</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Klikalny <code>&lt;div&gt;</code> niedostępny z klawiatury, brak roli</td>
+      <td>2.1.1 Klawiatura / 4.1.2 Nazwa, rola, wartość</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Manualnie (klawiatura)</td>
+      <td>Zastąpić <code>&lt;button&gt;</code> — natywna dostępność klawiatury</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Tabela danych bez nagłówków <code>&lt;th&gt;</code></td>
+      <td>1.3.1 Informacje i relacje</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Lighthouse (td-has-header)</td>
+      <td>Zastąpić pierwszą linię <code>&lt;th scope="col"&gt;</code>, dodać <code>&lt;caption&gt;</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Video z <code>autoplay loop</code>, bez <code>controls</code> i napisów</td>
+      <td>1.2.2 Napisy rozszerzone / 2.2.2 Pauza, zatrzymanie, ukrycie</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P1">P1</span></td>
+      <td>Manualnie</td>
+      <td>Usunąć <code>autoplay loop</code>, dodać <code>controls</code> i <code>&lt;track kind="captions"&gt;</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Pozytywne wartości <code>tabindex</code> (1, 2, 3) zaburzające kolejność</td>
+      <td>2.4.3 Kolejność fokusu</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Lighthouse (tabindex)</td>
+      <td>Usunąć atrybuty <code>tabindex="1"</code>, <code>tabindex="2"</code>, <code>tabindex="3"</code> z pól formularza. Zmienić kolejność elementów w DOM tak, aby odpowiadała kolejności wizualnej — przeglądarka wtedy naturalnie przechodzi fokus po kolei.</td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td><code>&lt;iframe&gt;</code> bez atrybutu <code>title</code></td>
+      <td>4.1.2 Nazwa, rola, wartość</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Lighthouse, axe, pa11y</td>
+      <td>Dodać <code>title="Mapa OpenStreetMap..."</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Grupa radio bez <code>&lt;fieldset&gt;</code> i <code>&lt;legend&gt;</code></td>
+      <td>1.3.1 Informacje i relacje</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Manualnie (czytnik ekranu)</td>
+      <td>Owinąć grupę w <code>&lt;fieldset&gt;&lt;legend&gt;...&lt;/legend&gt;&lt;/fieldset&gt;</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Własny dropdown bez ról ARIA i obsługi klawiatury</td>
+      <td>4.1.2 Nazwa, rola, wartość</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P2">P2</span></td>
+      <td>Manualnie (klawiatura + czytnik)</td>
+      <td>Dodać <code>role="listbox"</code>, <code>aria-haspopup</code>, <code>aria-expanded</code>, <code>role="option"</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Element <code>&lt;marquee&gt;</code> — ruchoma treść bez możliwości zatrzymania</td>
+      <td>2.2.2 Pauza, zatrzymanie, ukrycie</td>
+      <td><span class="badge badge-A">A</span></td>
+      <td><span class="badge badge-P3">P3</span></td>
+      <td>axe (marquee)</td>
+      <td>Zastąpić animacją CSS z przyciskiem pauzy i <code>prefers-reduced-motion</code></td>
+      <td><span class="badge badge-fixed">Naprawione</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== 3. WYNIKI NARZĘDZI ===== -->
+<h2>3. Szczegółowe wyniki narzędzi</h2>
+
+<h3>3.1 Lighthouse CLI — polecenie</h3>
+<pre>npx lighthouse http://localhost:3000/bledy-dostepnosci.html \
+  --only-categories=accessibility \
+  --output=json --output=html \
+  --output-path=./audit-reports/lighthouse-report \
+  --chrome-flags="--headless --no-sandbox --disable-gpu"</pre>
+<p><strong>Wynik:</strong> 57/100 &bull; Nieudane audyty (8): color-contrast, frame-title, heading-order, html-has-lang, image-alt, landmark-one-main, tabindex, td-has-header</p>
+
+<h3>3.2 axe-core CLI — polecenie</h3>
+<pre>npx axe http://localhost:3000/bledy-dostepnosci.html \
+  --tags wcag2a,wcag2aa \
+  --chromedriver-path ./chromedriver \
+  --save audit-reports/axe-report.json</pre>
+<p><strong>Wynik:</strong> 6 naruszeń — color-contrast (2×), frame-title, html-has-lang, image-alt, marquee</p>
+
+<h3>3.3 pa11y CLI — polecenie</h3>
+<pre>npx pa11y http://localhost:3000/bledy-dostepnosci.html \
+  --standard WCAG2AA \
+  --reporter json \
+  > audit-reports/pa11y-report.json</pre>
+<p><strong>Wynik:</strong> 13 błędów — html-lang, kontrast (2×), brak alt, 4× brak label/name na inputach, kontrast przycisku, brak title na iframe</p>
+
+<h3>3.4 Manualna inspekcja klawiaturą (4. narzędzie)</h3>
+<p>Procedura: wyłączono mysz, nawigacja wyłącznie przez <kbd>Tab</kbd>, <kbd>Shift+Tab</kbd>, <kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>strzałki</kbd>.</p>
+<table>
+  <thead><tr><th>Element</th><th>Oczekiwanie</th><th>Wynik</th><th>Kryterium</th></tr></thead>
+  <tbody>
+    <tr><td>Wskaźnik focus</td><td>Widoczna ramka na każdym aktywnym elemencie</td><td style="color:#f44336">❌ Brak — <code>outline:none</code> ukrywa focus globalnie</td><td>2.4.7 AA</td></tr>
+    <tr><td>Div "Kup teraz"</td><td>Dostępny przez Tab, aktywowany przez Enter/Space</td><td style="color:#f44336">❌ Nie można dojść Tab'em, nie reaguje na klawiaturę</td><td>2.1.1 A</td></tr>
+    <tr><td>Custom dropdown</td><td>Otwierany przez Enter, opcje przez strzałki</td><td style="color:#f44336">❌ Nie reaguje na klawiaturę w żaden sposób</td><td>4.1.2 A</td></tr>
+    <tr><td>Pola tabindex 1/2/3</td><td>Fokus wg kolejności wizualnej: pole1→pole2→pole3</td><td style="color:#f44336">❌ Fokus skacze: pole1→pole2→pole3 zanim dotrze do pozostałych elementów strony</td><td>2.4.3 A</td></tr>
+    <tr><td>Linki nawigacyjne</td><td>Osiągalne i aktywowane przez Enter</td><td style="color:#4caf50">✅ Linki dostępne z klawiatury</td><td>2.1.1 A</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== 4. TEST CZYTNIKA EKRANU ===== -->
+<h2>4. Test czytnika ekranu (NVDA / VoiceOver) — 3 obserwacje</h2>
+
+<div class="observation">
+  <strong>Obserwacja 1 — Linki "Kliknij tutaj"</strong><br/>
+  NVDA odczytuje listę linków jako trzy identyczne "Kliknij tutaj". Użytkownik nie jest w stanie odróżnić linków bez kontekstu wizualnego. Lista linków (Insert+F7) pokazuje trzy identyczne pozycje.
+  <br/><em>Kryterium: 2.4.4 A &bull; Priorytet: P1</em>
+</div>
+
+<div class="observation">
+  <strong>Obserwacja 2 — Przycisk emoji ❤️</strong><br/>
+  NVDA odczytuje przycisk jako "serce button" (dosłowny opis emoji przez czytnik). Użytkownik nie wie, że przycisk służy do dodania do ulubionych.
+  <br/><em>Kryterium: 4.1.2 A &bull; Priorytet: P1</em>
+</div>
+
+<div class="observation">
+  <strong>Obserwacja 3 — Formularz bez etykiet</strong><br/>
+  VoiceOver odczytuje pole input jako "edit text" bez żadnej nazwy. Nie wiadomo, co należy wpisać. Pola z tabindex 1/2/3 są odwiedzane w kolejności 1→2→3, zamiast kolejności wizualnej na ekranie.
+  <br/><em>Kryterium: 1.3.1 / 2.4.3 A &bull; Priorytet: P1</em>
+</div>
+
+<!-- ===== 5. WERYFIKACJA KONTRASTU ===== -->
+<h2>5. Weryfikacja kontrastu — 5 elementów</h2>
+<table class="contrast-row">
+  <thead>
+    <tr><th>Element</th><th>Kolor tekstu</th><th>Kolor tła</th><th>Stosunek kontrastu</th><th>Wymaganie</th><th>Wynik</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>.subtitle</code> (przed)</td>
+      <td style="background:#aaa;color:#fff">#aaaaaa</td>
+      <td style="background:#fff;border:1px solid #ddd">#ffffff</td>
+      <td>2.3:1</td>
+      <td>≥ 4.5:1</td>
+      <td style="color:#f44336;font-weight:700">❌ FAIL</td>
+    </tr>
+    <tr>
+      <td><code>.subtitle</code> (po naprawie)</td>
+      <td style="background:#767676;color:#fff">#767676</td>
+      <td style="background:#fff;border:1px solid #ddd">#ffffff</td>
+      <td>4.54:1</td>
+      <td>≥ 4.5:1</td>
+      <td style="color:#4caf50;font-weight:700">✅ PASS</td>
+    </tr>
+    <tr>
+      <td><code>.btn-bad</code> (przed)</td>
+      <td style="background:#6699FF;color:#000">#6699FF</td>
+      <td style="background:#0043FF;color:#fff">#0043FF</td>
+      <td>1.6:1</td>
+      <td>≥ 3:1</td>
+      <td style="color:#f44336;font-weight:700">❌ FAIL</td>
+    </tr>
+    <tr>
+      <td><code>.btn-good</code> (po naprawie)</td>
+      <td style="background:#fff;color:#000;border:1px solid #ddd">#ffffff</td>
+      <td style="background:#0043FF;color:#fff">#0043FF</td>
+      <td>5.9:1</td>
+      <td>≥ 3:1</td>
+      <td style="color:#4caf50;font-weight:700">✅ PASS</td>
+    </tr>
+    <tr>
+      <td><code>h1</code> (#111 na #fff)</td>
+      <td style="background:#111;color:#fff">#111111</td>
+      <td style="background:#fff;border:1px solid #ddd">#ffffff</td>
+      <td>18.1:1</td>
+      <td>≥ 4.5:1</td>
+      <td style="color:#4caf50;font-weight:700">✅ PASS</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== 6. PRZYKŁADY NAPRAW (PRZED / PO) ===== -->
+<h2>6. Przykłady napraw — kod przed i po</h2>
+
+<h3>Naprawa #1 — Atrybut lang</h3>
+<pre class="before"><!-- PRZED -->
+&lt;html&gt;</pre>
+<pre class="after"><!-- PO -->
+&lt;html lang="pl"&gt;</pre>
+
+<h3>Naprawa #2 — Kontrast tekstu</h3>
+<pre class="before">/* PRZED */
+.subtitle { color: #aaaaaa; }</pre>
+<pre class="after">/* PO */
+.subtitle { color: #767676; } /* kontrast 4.54:1 */</pre>
+
+<h3>Naprawa #3 — Widoczność fokusu</h3>
+<pre class="before">/* PRZED */
+* { outline: none; }</pre>
+<pre class="after">/* PO */
+*:focus { outline: 3px solid #005fcc; outline-offset: 2px; }</pre>
+
+<h3>Naprawa #9 — Label dla inputu</h3>
+<pre class="before">&lt;!-- PRZED --&gt;
+&lt;input type="text" placeholder="Wpisz imię" /&gt;</pre>
+<pre class="after">&lt;!-- PO --&gt;
+&lt;label for="name-input"&gt;Imię&lt;/label&gt;
+&lt;input type="text" id="name-input" placeholder="Wpisz imię" /&gt;</pre>
+
+<h3>Naprawa #12 — Tabela z nagłówkami</h3>
+<pre class="before">&lt;!-- PRZED --&gt;
+&lt;table&gt;
+  &lt;tr&gt;&lt;td&gt;Produkt&lt;/td&gt;&lt;td&gt;Cena&lt;/td&gt;&lt;td&gt;Ilość&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Laptop&lt;/td&gt;...&lt;/tr&gt;
+&lt;/table&gt;</pre>
+<pre class="after">&lt;!-- PO --&gt;
+&lt;table&gt;
+  &lt;caption&gt;Lista produktów&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Produkt&lt;/th&gt;
+      &lt;th scope="col"&gt;Cena&lt;/th&gt;
+      &lt;th scope="col"&gt;Ilość&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Laptop&lt;/td&gt;...&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;</pre>
+
+<h3>Naprawa #16 — Fieldset dla radio</h3>
+<pre class="before">&lt;!-- PRZED --&gt;
+&lt;p&gt;Wybierz płeć:&lt;/p&gt;
+&lt;input type="radio" name="gender" id="male" /&gt; &lt;label for="male"&gt;Mężczyzna&lt;/label&gt;</pre>
+<pre class="after">&lt;!-- PO --&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;Wybierz płeć&lt;/legend&gt;
+  &lt;input type="radio" name="gender" id="male" /&gt; &lt;label for="male"&gt;Mężczyzna&lt;/label&gt;
+&lt;/fieldset&gt;</pre>
+
+<h3>Naprawa #18 — Marquee → animacja CSS z kontrolką</h3>
+<pre class="before">&lt;!-- PRZED --&gt;
+&lt;marquee&gt;UWAGA: Ruchomy tekst bez możliwości zatrzymania&lt;/marquee&gt;</pre>
+<pre class="after">&lt;!-- PO --&gt;
+&lt;div class="ticker" aria-label="Ogłoszenie"&gt;
+  &lt;span class="ticker-inner" id="ticker-text"&gt;Tekst ogłoszenia&lt;/span&gt;
+  &lt;button aria-label="Zatrzymaj animację"&gt;⏸ Zatrzymaj&lt;/button&gt;
+&lt;/div&gt;
+/* CSS: @media (prefers-reduced-motion: reduce) { .ticker-inner { animation: none; } } */</pre>
+
+<!-- ===== 7. PODSUMOWANIE ===== -->
+<h2>7. Podsumowanie i rekomendacje</h2>
+
+<h3>7.1 Ogólna ocena dostępności</h3>
+<p>
+  Stan dostępności audytowanej strony oceniamy jako <strong style="color:#f44336">krytyczny</strong>.
+  Wynik Lighthouse <strong>57/100</strong> przy 18 naruszeniach WCAG 2.1 (15× poziom A, 3× poziom AA)
+  oznacza, że strona jest praktycznie niedostępna dla użytkowników korzystających z czytników ekranu
+  i nawigacji klawiaturą. Aż <strong>10 błędów priorytet P1</strong> blokuje podstawowe funkcje:
+  wypełnienie formularza, kliknięcie przycisku CTA, zrozumienie treści obrazów i linków.
+  Narzędzia automatyczne wykryły 20–50% wszystkich problemów — potwierdza to konieczność
+  obowiązkowego testowania manualnego jako stałego elementu procesu wydawniczego.
+</p>
+
+<h3>7.2 Plan naprawy wg priorytetów</h3>
+<table>
+  <thead><tr><th>Priorytet</th><th>Błędy</th><th>Szacowany czas naprawy</th><th>Uzasadnienie</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge-P1">P1 — Natychmiast</span></td>
+      <td>#1 lang, #2 kontrast, #3 focus, #4 kontrast przycisku, #6 alt, #9 label, #10 aria-label, #11 div→button, #13 video</td>
+      <td>1–2 dni</td>
+      <td>Całkowita blokada dla użytkowników AT; ryzyko prawne (EAA 2025, ADA)</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-P2">P2 — Ten sprint</span></td>
+      <td>#5 nagłówki, #7 alt informatywny, #8 linki, #12 tabela, #14 tabindex, #15 iframe title, #16 fieldset, #17 ARIA dropdown</td>
+      <td>3–5 dni</td>
+      <td>Utrudniona nawigacja; niespójne doświadczenie dla użytkowników czytników</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-P3">P3 — Następny sprint</span></td>
+      <td>#18 marquee</td>
+      <td>0.5 dnia</td>
+      <td>Deprecated element HTML; irytujące ale nie blokujące</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>7.3 Rekomendacje</h3>
+
+<div class="recommendation">
+  <strong>Rekomendacja 1 — Kontrast i design system</strong><br/>
+  Wprowadzić design tokens z zatwierdzonymi parami kolorów spełniającymi WCAG 1.4.3: np.
+  tekst podstawowy <code>#111111</code> na białym (18:1), akcent <code>#0043FF</code> z białym tekstem (5.9:1).
+  Zintegrować <code>eslint-plugin-jsx-a11y</code> w pipeline CI/CD — wykrywa brak <code>alt</code>, <code>label</code>,
+  <code>aria-label</code> już na etapie code review, zanim błąd trafi na produkcję.
+</div>
+
+<div class="recommendation">
+  <strong>Rekomendacja 2 — Semantyczny HTML zamiast divów</strong><br/>
+  Każdy interaktywny element musi być natywnym elementem HTML: <code>&lt;button&gt;</code> zamiast
+  <code>&lt;div onclick&gt;</code>, <code>&lt;a href&gt;</code> dla linków nawigacyjnych.
+  Stosować landmark'i: <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>.
+  Nigdy nie używać dodatnich wartości <code>tabindex</code> — DOM powinien odzwierciedlać kolejność wizualną.
+  Zasada: jeśli element jest klikalny, musi być <code>&lt;button&gt;</code> lub <code>&lt;a&gt;</code>.
+</div>
+
+<div class="recommendation">
+  <strong>Rekomendacja 3 — Dostępność jako etap procesu deweloperskiego</strong><br/>
+  Obecny proces nie zawiera żadnego kroku weryfikacji dostępności — błędy są wykrywane dopiero
+  po wdrożeniu. Proponowany proces: (1) <code>axe-core</code> lub <code>pa11y-ci</code> w GitHub Actions
+  blokuje merge PR przy nowych naruszeniach WCAG2AA; (2) testy manualne klawiaturą przed każdym release'm;
+  (3) cykliczny audyt z NVDA/VoiceOver raz na kwartał; (4) szkolenie zespołu z podstaw WCAG — 2h wystarczą
+  do wyeliminowania 80% najczęstszych błędów.
+</div>
+
+<h3>7.4 Wnioski dotyczące procesu</h3>
+<p>
+  Audyt potwierdził, że <strong>automatyczne narzędzia (Lighthouse, axe, pa11y) wykrywają razem maksymalnie 50% błędów</strong>
+  — w tym przypadku 8–13 z 18, czyli 44–72%. Błędy takie jak ukryty focus (#3), pusty alt na obrazie informatywnym (#7),
+  nieopiszące linki (#8) czy brak fieldset (#16) zostały wykryte wyłącznie testami manualnymi.
+  Oznacza to, że <strong>żadne pojedyncze narzędzie nie zastąpi kompletnego audytu</strong>.
+  Optymalny zestaw dla projektu komercyjnego to: axe w CI/CD (automatyczna bariera) +
+  Lighthouse w DevTools (szybki przegląd) + pa11y w raporcie (dowód dla klienta) +
+  test NVDA/VoiceOver przed release'm (rzeczywiste doświadczenie użytkownika).
+</p>
+
+<footer>
+  <p>Raport wygenerowany: 2026-05-20 &bull; Narzędzia: Lighthouse 13.3.0 · axe-core 4.11.4 · pa11y 9.1.1 &bull; Standard: WCAG 2.1 AA</p>
+  <p>Akademia Tarnowska — Zaawansowany interfejs użytkownika — Laboratorium 10</p>
+</footer>
+
+</body>
+</html>
