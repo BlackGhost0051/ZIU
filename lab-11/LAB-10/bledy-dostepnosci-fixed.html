@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- NAPRAWA #1: dodano lang="pl" — WCAG 3.1.1 A -->
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Strona z naprawionymi błędami dostępności — Lab 10</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; margin: 0; padding: 20px; }
+
+    /* NAPRAWA #2: kontrast poprawiony — ciemnoszary #767676 na białym tle (4.54:1) — WCAG 1.4.3 AA */
+    .subtitle { color: #767676; font-size: 1.2rem; }
+
+    /* NAPRAWA #3: przywrócony widoczny focus — WCAG 2.4.7 AA */
+    *:focus { outline: 3px solid #005fcc; outline-offset: 2px; }
+
+    /* NAPRAWA #4: kontrast przycisku poprawiony — biały #fff na #0043FF (5.9:1) — WCAG 1.4.3 AA */
+    .btn-good { background-color: #0043FF; color: #ffffff; padding: 10px 20px; border: none; cursor: pointer; font-size: 1rem; border-radius: 4px; }
+    .btn-good:focus { outline: 3px solid #005fcc; outline-offset: 2px; }
+
+    h1 { color: #111; }
+
+    /* NAPRAWA #11: klikalny element jako button */
+    .real-button { background: #e50914; color: #fff; padding: 10px 20px; display: inline-block; cursor: pointer; border-radius: 4px; margin: 8px 0; border: none; font-size: 1rem; }
+    .real-button:focus { outline: 3px solid #005fcc; outline-offset: 2px; }
+
+    /* NAPRAWA #17: custom dropdown z ARIA */
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-toggle { background: #333; color: #fff; padding: 8px 16px; cursor: pointer; border-radius: 4px; border: none; font-size: 1rem; }
+    .dropdown-menu { display: none; position: absolute; background: #fff; border: 1px solid #ccc; list-style: none; padding: 4px 0; margin: 0; min-width: 150px; }
+    .dropdown-menu li { padding: 8px 12px; cursor: pointer; }
+    .dropdown-menu li:hover, .dropdown-menu li:focus { background: #eee; outline: none; }
+    .dropdown-toggle[aria-expanded="true"] + .dropdown-menu { display: block; }
+
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f0f0f0; text-align: left; }
+
+    .section { margin-bottom: 40px; }
+    a { margin-right: 12px; }
+
+    /* Zatrzymywanie animacji zastępującej marquee */
+    .ticker { overflow: hidden; white-space: nowrap; background: #fff3cd; border: 1px solid #ffc107; padding: 8px; }
+    .ticker-inner { display: inline-block; animation: ticker 12s linear infinite; }
+    .ticker-inner:hover, .ticker:focus-within .ticker-inner { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) { .ticker-inner { animation: none; } }
+    @keyframes ticker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+    .ticker-stop { margin-left: 8px; font-size: 0.8rem; cursor: pointer; background: none; border: 1px solid #333; border-radius: 3px; padding: 2px 6px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAPRAWA: strona ma element main — WCAG 1.3.1 -->
+  <main>
+
+    <h1>Strona z naprawionymi błędami dostępności</h1>
+
+    <!-- NAPRAWA #2: poprawiony kontrast -->
+    <p class="subtitle">Podtytuł z poprawionym kontrastem (4.54:1 ≥ 4.5:1)</p>
+
+    <!-- ===== NAGŁÓWKI ===== -->
+    <section class="section">
+      <!-- NAPRAWA #5: poprawna kolejność nagłówków h1 → h2 — WCAG 1.3.1 A -->
+      <h2>Sekcja z poprawną kolejnością nagłówków (h1 → h2)</h2>
+    </section>
+
+    <!-- ===== OBRAZY ===== -->
+    <section class="section">
+      <h2>Obrazy</h2>
+      <!-- NAPRAWA #6: dodano opisowy alt — WCAG 1.1.1 A -->
+      <img src="https://via.placeholder.com/200x150" width="200" height="150"
+           alt="Przykładowy obraz demonstracyjny" />
+
+      <!-- NAPRAWA #7: alt opisuje zawartość informatywną — WCAG 1.1.1 A -->
+      <img src="https://via.placeholder.com/200x150/ff0000" width="200" height="150"
+           style="margin-left:16px"
+           alt="Wykres słupkowy: wzrost sprzedaży o 42% w Q4 2024 względem Q3 2024" />
+      <p style="font-size:0.85rem;color:#555">Wykres przedstawiający wzrost sprzedaży o 42% w Q4 2024</p>
+    </section>
+
+    <!-- ===== LINKI ===== -->
+    <section class="section">
+      <h2>Linki</h2>
+      <!-- NAPRAWA #8: opisowe linki — WCAG 2.4.4 A -->
+      <a href="/oferta">Sprawdź naszą ofertę</a>
+      <a href="/artykul">Przeczytaj cały artykuł</a>
+      <a href="/kontakt">Przejdź do strony kontaktu</a>
+    </section>
+
+    <!-- ===== FORMULARZE ===== -->
+    <section class="section">
+      <h2>Formularz</h2>
+
+      <!-- NAPRAWA #9: input z powiązanym <label> — WCAG 1.3.1 / 4.1.2 A -->
+      <div style="margin-bottom:12px;">
+        <label for="name-input" style="display:block;font-weight:600;margin-bottom:4px;">Imię</label>
+        <input type="text" id="name-input" placeholder="Wpisz imię"
+               style="padding:8px;display:block;width:200px;" />
+      </div>
+
+      <!-- NAPRAWA #10: przycisk z aria-label — WCAG 4.1.2 A -->
+      <button style="font-size:1.5rem;border:none;background:none;cursor:pointer;"
+              aria-label="Dodaj do ulubionych">❤️</button>
+
+      <!-- NAPRAWA #14: usunięto dodatnie tabindex — WCAG 2.4.3 A -->
+      <div style="margin-top:16px;">
+        <label for="f1" style="display:block;font-size:0.85rem;">Pole 1</label>
+        <input type="text" id="f1" placeholder="Pole 1" style="display:block;margin-bottom:8px;padding:8px;" />
+        <label for="f2" style="display:block;font-size:0.85rem;">Pole 2</label>
+        <input type="text" id="f2" placeholder="Pole 2" style="display:block;margin-bottom:8px;padding:8px;" />
+        <label for="f3" style="display:block;font-size:0.85rem;">Pole 3</label>
+        <input type="text" id="f3" placeholder="Pole 3" style="display:block;margin-bottom:8px;padding:8px;" />
+      </div>
+
+      <!-- NAPRAWA #16: radio z <fieldset>/<legend> — WCAG 1.3.1 A -->
+      <fieldset style="margin-top:16px;border:1px solid #ccc;border-radius:4px;padding:12px;">
+        <legend style="font-weight:600;padding:0 6px;">Wybierz płeć</legend>
+        <input type="radio" name="gender" id="male" value="male" />
+        <label for="male">Mężczyzna</label><br/>
+        <input type="radio" name="gender" id="female" value="female" />
+        <label for="female">Kobieta</label>
+      </fieldset>
+    </section>
+
+    <!-- ===== PRZYCISKI ===== -->
+    <section class="section">
+      <h2>Przyciski i interaktywne elementy</h2>
+
+      <!-- NAPRAWA #4: poprawiony kontrast przycisku -->
+      <button class="btn-good">Zapisz (poprawiony kontrast)</button>
+
+      <!-- NAPRAWA #11: <button> zamiast <div> — WCAG 2.1.1 / 4.1.2 A -->
+      <button class="real-button" onclick="alert('Kliknięto!')">Kup teraz</button>
+
+      <!-- NAPRAWA #17: dropdown z pełnymi rolami ARIA — WCAG 4.1.2 A -->
+      <div class="dropdown" style="margin-top:12px;">
+        <button class="dropdown-toggle" aria-haspopup="listbox" aria-expanded="false"
+                id="dropdown-btn"
+                onclick="
+                  const expanded = this.getAttribute('aria-expanded')==='true';
+                  this.setAttribute('aria-expanded', String(!expanded));
+                ">
+          Wybierz opcję ▼
+        </button>
+        <ul class="dropdown-menu" role="listbox" aria-labelledby="dropdown-btn">
+          <li role="option" tabindex="0">Opcja 1</li>
+          <li role="option" tabindex="0">Opcja 2</li>
+          <li role="option" tabindex="0">Opcja 3</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== TABELA ===== -->
+    <section class="section">
+      <h2>Tabela danych</h2>
+      <!-- NAPRAWA #12: <th> z scope — WCAG 1.3.1 A -->
+      <table>
+        <caption style="text-align:left;font-weight:600;margin-bottom:6px;">Lista produktów</caption>
+        <thead>
+          <tr>
+            <th scope="col">Produkt</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Ilość</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Laptop</td>
+            <td>3 499 zł</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>Monitor</td>
+            <td>1 299 zł</td>
+            <td>8</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== MULTIMEDIA ===== -->
+    <section class="section">
+      <h2>Multimedia</h2>
+
+      <!-- NAPRAWA #13: video bez autoplay, z controls i track — WCAG 1.2.2 / 2.2.2 A -->
+      <video controls width="320" height="180" style="background:#000;display:block;">
+        <source src="sample.mp4" type="video/mp4" />
+        <track kind="captions" src="sample.vtt" srclang="pl" label="Polski" default />
+        Twoja przeglądarka nie obsługuje elementu video.
+      </video>
+
+      <!-- NAPRAWA #15: iframe z title — WCAG 4.1.2 A -->
+      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=20,50,21,51"
+              title="Mapa OpenStreetMap: widok regionu Małopolska"
+              width="400" height="200"
+              style="display:block;margin-top:16px;border:1px solid #ccc;">
+      </iframe>
+
+      <!-- NAPRAWA #18: zamiast <marquee> — animacja CSS z możliwością zatrzymania — WCAG 2.2.2 A -->
+      <div class="ticker" aria-label="Ogłoszenie" style="margin-top:16px;">
+        <span class="ticker-inner" id="ticker-text">
+          UWAGA: Ten komunikat zastępuje marquee — można go zatrzymać hover'em lub focus'em
+        </span>
+        <button class="ticker-stop"
+                onclick="
+                  const el = document.getElementById('ticker-text');
+                  const paused = el.style.animationPlayState === 'paused';
+                  el.style.animationPlayState = paused ? 'running' : 'paused';
+                  this.textContent = paused ? '⏸ Zatrzymaj' : '▶ Wznów';
+                "
+                aria-label="Zatrzymaj lub wznów animację paska">⏸ Zatrzymaj</button>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
