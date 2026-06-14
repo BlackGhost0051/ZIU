@@ -1,4 +1,4 @@
-# Laboratorium 8
+# Project ZIU
 
 ## Szybki start
 
