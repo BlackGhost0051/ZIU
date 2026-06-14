@@ -1,5 +1,6 @@
 # ZIU
 
+## LABS
 - [Lab-01](./lab-01) - laboratory 1
 - [Lab-02](./lab-02) - laboratory 2
 - [Lab-03](./lab-03) - laboratory 3
@@ -12,3 +13,6 @@
 - [Lab-10](./lab-10) - laboratory 10
 - [Lab-11](./lab-11) - laboratory 11
 - [Lab-12](./lab-12) - laboratory 12
+
+## PROJECT
+- [link](./project) - Project
