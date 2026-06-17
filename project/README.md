@@ -2,7 +2,7 @@
 
 Aplikacja webowa typu SPA (Single Page Application) zbudowana w React 18 + TypeScript jako projekt zaliczeniowy na kierunku Zarządzanie Informacją i Usługami (ZIU).
 
-**Demo:** _po wdrożeniu uzupełnić link_  
+**Demo:** https://ziu-todo-app-dun.vercel.app  
 **Projekt Figma (lo-fi + hi-fi):** https://www.figma.com/design/54tzUqsXfXx13YfAjMhlby/Lab2_Valentyn_Kulbitskyy_ToDoApp?node-id=0-1&t=gqohEjB4wxwCLTFi-1
 
 ---
