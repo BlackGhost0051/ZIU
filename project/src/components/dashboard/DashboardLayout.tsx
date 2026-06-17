@@ -8,6 +8,7 @@ import StatsGrid from './StatsGrid';
 import TodoApp from './TodoApp';
 import MovieBrowserPage from './MovieBrowserPage';
 import AnalyticsPage from './AnalyticsPage';
+import SettingsPage from './SettingsPage';
 import { trackCtaClick } from '../../utils/analytics';
 
 export default function DashboardLayout() {
@@ -15,6 +16,7 @@ export default function DashboardLayout() {
   const location = useLocation();
   const isMovies = location.pathname === '/movies';
   const isAnalytics = location.pathname === '/analytics';
+  const isSettings = location.pathname === '/settings';
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -30,6 +32,7 @@ export default function DashboardLayout() {
         aria-label="Treść główna aplikacji"
         sx={{
           flexGrow: 1,
+          minWidth: 0,
           p: isMovies ? 0 : { xs: 2, sm: 3 },
           width: { md: 'calc(100% - 240px)' },
           bgcolor: isMovies ? 'transparent' : 'background.default',
@@ -43,9 +46,16 @@ export default function DashboardLayout() {
         ) : isAnalytics ? (
           <>
             <Toolbar />
-            <section aria-label="Analityka behawioralna" style={{ padding: '1.5rem' }}>
+            <Box sx={{ px: { xs: 1.5, sm: 3 }, py: { xs: 2, sm: 3 } }}>
               <AnalyticsPage />
-            </section>
+            </Box>
+          </>
+        ) : isSettings ? (
+          <>
+            <Toolbar />
+            <Box sx={{ px: { xs: 1.5, sm: 3 }, py: { xs: 2, sm: 3 } }}>
+              <SettingsPage />
+            </Box>
           </>
         ) : (
           <>

@@ -135,10 +135,10 @@ export default function AnalyticsPage() {
   const formEntered = rows.filter((r) => r.page === 'form').length;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2.5, sm: 4 } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <BarChartIcon color="primary" />
-        <Typography variant="h5" fontWeight={700}>
+        <Typography variant="h5" fontWeight={700} sx={{ fontSize: { xs: '1.1rem', sm: '1.5rem' } }}>
           Analiza behawioralna — sessions_lab12.csv
         </Typography>
       </Box>
@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
       </Typography>
 
       {/* A — Eksploracja narzędzi (pkt 2.3) */}
-      <Paper elevation={2} sx={{ p: 3 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 } }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
           <ExploreIcon color="secondary" />
           <Typography variant="h6" fontWeight={600}>
@@ -199,12 +199,12 @@ export default function AnalyticsPage() {
             <Typography variant="subtitle2" fontWeight={700}>
               3. Rozmiar paczek npm (Bundlephobia)
             </Typography>
-            <Box sx={{ display: 'flex', gap: 4, mt: 0.5, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 2, mt: 0.5, flexWrap: 'wrap' }}>
               {[
                 { name: 'react-ga4', minGzip: '~3,4 kB', note: 'wrapper nad gtag.js; sam gtag.js to +45 kB ładowany zewnętrznie' },
                 { name: 'plausible-tracker', minGzip: '~1,3 kB', note: 'lekki wrapper, skrypt główny ~1 kB ładowany z plausible.io' },
               ].map((pkg) => (
-                <Box key={pkg.name} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, p: 1.5, minWidth: 220 }}>
+                <Box key={pkg.name} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, p: 1.5, flex: '1 1 180px' }}>
                   <Typography variant="body2" fontFamily="monospace" fontWeight={700}>{pkg.name}</Typography>
                   <Typography variant="body2">min+gzip: <strong>{pkg.minGzip}</strong></Typography>
                   <Typography variant="caption" color="text.secondary">{pkg.note}</Typography>
@@ -244,54 +244,56 @@ export default function AnalyticsPage() {
       </Paper>
 
       {/* B1 — Bounce rate */}
-      <Paper elevation={2} sx={{ p: 3 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 }, overflow: 'hidden' }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           B1 — Bounce rate per strona
         </Typography>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell><strong>Strona</strong></TableCell>
-              <TableCell align="right"><strong>Sesje</strong></TableCell>
-              <TableCell align="right"><strong>Odbite</strong></TableCell>
-              <TableCell align="right"><strong>Bounce rate</strong></TableCell>
-              <TableCell><strong>Interpretacja</strong></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {bounceData.map(({ page, total, bounced, rate }) => (
-              <TableRow key={page}>
-                <TableCell>
-                  <code>{page}</code>
-                </TableCell>
-                <TableCell align="right">{total}</TableCell>
-                <TableCell align="right">{bounced}</TableCell>
-                <TableCell align="right">
-                  <Chip
-                    label={`${rate}%`}
-                    color={rateColor(rate)}
-                    size="small"
-                    variant="filled"
-                  />
-                </TableCell>
-                <TableCell sx={{ fontSize: 12, color: 'text.secondary', maxWidth: 260 }}>
-                  {page === 'home' &&
-                    'Krytyczny — 4 na 5 użytkowników wychodzi bez interakcji. Hero section nie zatrzymuje uwagi.'}
-                  {page === 'about' &&
-                    'Wysoki — treść angażuje (team_card), ale brak wyraźnego CTA prowadzącego do konwersji.'}
-                  {page === 'form' &&
-                    'Niski — użytkownicy którzy dotrą są zaangażowani, ale tylko 7,5% kończy submit.'}
-                  {page === 'confirm' &&
-                    'Niski — strona potwierdzenia spełnia swoje zadanie, brak potrzeby optymalizacji.'}
-                </TableCell>
+        <Box sx={{ overflowX: 'auto' }}>
+          <Table size="small" sx={{ minWidth: 480 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>Strona</strong></TableCell>
+                <TableCell align="right"><strong>Sesje</strong></TableCell>
+                <TableCell align="right"><strong>Odbite</strong></TableCell>
+                <TableCell align="right"><strong>Bounce rate</strong></TableCell>
+                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}><strong>Interpretacja</strong></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {bounceData.map(({ page, total, bounced, rate }) => (
+                <TableRow key={page}>
+                  <TableCell>
+                    <code>{page}</code>
+                  </TableCell>
+                  <TableCell align="right">{total}</TableCell>
+                  <TableCell align="right">{bounced}</TableCell>
+                  <TableCell align="right">
+                    <Chip
+                      label={`${rate}%`}
+                      color={rateColor(rate)}
+                      size="small"
+                      variant="filled"
+                    />
+                  </TableCell>
+                  <TableCell sx={{ fontSize: 12, color: 'text.secondary', maxWidth: 260, display: { xs: 'none', sm: 'table-cell' } }}>
+                    {page === 'home' &&
+                      'Krytyczny — 4 na 5 użytkowników wychodzi bez interakcji. Hero section nie zatrzymuje uwagi.'}
+                    {page === 'about' &&
+                      'Wysoki — treść angażuje (team_card), ale brak wyraźnego CTA prowadzącego do konwersji.'}
+                    {page === 'form' &&
+                      'Niski — użytkownicy którzy dotrą są zaangażowani, ale tylko 7,5% kończy submit.'}
+                    {page === 'confirm' &&
+                      'Niski — strona potwierdzenia spełnia swoje zadanie, brak potrzeby optymalizacji.'}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       </Paper>
 
       {/* B2 — Drop-off formularza */}
-      <Paper elevation={2} sx={{ p: 3 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 } }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           B2 — Drop-off formularza (funnel krok po kroku)
         </Typography>
@@ -305,8 +307,8 @@ export default function AnalyticsPage() {
             const dropPct = Math.round((drop / prev) * 100);
             return (
               <Box key={step}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 0.5 }}>
-                  <Typography variant="body2" sx={{ width: 72, fontWeight: 600 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, mb: 0.5 }}>
+                  <Typography variant="body2" sx={{ width: { xs: 56, sm: 72 }, fontWeight: 600, flexShrink: 0 }}>
                     Krok {step}
                   </Typography>
                   <Box sx={{ flex: 1 }}>
@@ -346,20 +348,20 @@ export default function AnalyticsPage() {
       </Paper>
 
       {/* B3 — Top 5 kliknięć */}
-      <Paper elevation={2} sx={{ p: 3 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 } }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           B3 — Top 5 najczęściej klikanych elementów
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
           {clickData.map(({ element, count }, i) => (
-            <Box key={element} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Typography variant="body2" sx={{ width: 24, fontWeight: 700, color: 'text.secondary' }}>
+            <Box key={element} sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 } }}>
+              <Typography variant="body2" sx={{ width: 24, fontWeight: 700, color: 'text.secondary', flexShrink: 0 }}>
                 #{i + 1}
               </Typography>
-              <Typography variant="body2" sx={{ width: 180, fontFamily: 'monospace' }}>
+              <Typography variant="body2" sx={{ width: { xs: 110, sm: 180 }, fontFamily: 'monospace', fontSize: { xs: 11, sm: 14 }, flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {element}
               </Typography>
-              <Box sx={{ flex: 1 }}>
+              <Box sx={{ flex: 1, minWidth: 0 }}>
                 <HBar value={count} max={maxClicks} color={i === 0 ? '#ef5350' : '#42a5f5'} />
               </Box>
             </Box>
@@ -373,7 +375,7 @@ export default function AnalyticsPage() {
       </Paper>
 
       {/* Zadanie C — Iteracje */}
-      <Paper elevation={2} sx={{ p: 3 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2, sm: 3 } }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           C — Propozycje iteracji UI (uzasadnione danymi)
         </Typography>
@@ -439,7 +441,7 @@ export default function AnalyticsPage() {
       </Paper>
 
       {/* RODO checklist */}
-      <Paper elevation={1} sx={{ p: 3, bgcolor: 'background.default' }}>
+      <Paper elevation={1} sx={{ p: { xs: 2, sm: 3 }, bgcolor: 'background.default' }}>
         <Typography variant="subtitle2" fontWeight={700} gutterBottom>
           Checklist anonimizacji RODO
         </Typography>

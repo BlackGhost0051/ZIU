@@ -57,7 +57,7 @@ export default function AppHeader({ onMenuClick, mobileOpen }: AppHeaderProps) {
           startIcon={<AssignmentIcon />}
           aria-label="Zarejestruj się — przejdź do formularza"
           onClick={() => trackCtaClick('header_sticky_cta')}
-          sx={{ mr: 2, fontWeight: 700 }}
+          sx={{ mr: 2, fontWeight: 700, display: { xs: 'none', sm: 'inline-flex' } }}
         >
           Zarejestruj się
         </Button>
